@@ -13,6 +13,7 @@ import Button from '@/components/Button'
 import ReviewSec from '@/components/ReviewSec'
 import { SideBar } from '@/components/SideBarLayout'
 import CarouselInDetailSec from '@/components/CarouselInDetailSec'
+import Link from 'next/link'
 
 
 const page = () => {
@@ -57,7 +58,9 @@ const page = () => {
                                         <span className="text-xl font-bold text-black">$80.00</span>
                                         <span className="text-gray-500">/ day</span>
                                     </div>
+                                    <Link href="/payment">
                                     <Button btnText='Rent Now' bgColor='bg-blue-600 hover:bg-blue-700 p-2' />
+                                    </Link>
                                 </div>
                             </CardFooter>
                         </Card>

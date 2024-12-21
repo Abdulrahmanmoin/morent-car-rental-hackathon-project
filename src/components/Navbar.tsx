@@ -4,6 +4,17 @@ import { Search } from "@/components/ui/search"
 import Link from "next/link"
 import Image from "next/image"
 
+import * as React from "react"
+
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 export function Navbar() {
   return (
     <nav className="w-full border-b border-gray-100 bg-white py-5">
@@ -27,44 +38,72 @@ export function Navbar() {
                 src={"/assets/heart.png"}
                 alt="Profile"
                 height={10000}
-                width={10000} 
+                width={10000}
                 className="h-6 w-6"
-                />
+              />
             </button>
             <button className="p-2 text-gray-500 hover:text-gray-700 relative">
-            <Image
+              <Image
                 src={"/assets/notification.png"}
                 alt="Profile"
                 height={10000}
-                width={10000} 
+                width={10000}
                 className="h-6 w-6"
-                />
+              />
               <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500"></span>
             </button>
-            <button className="p-2 text-gray-500 hover:text-gray-700">
-            <Image
-                src={"/assets/setting-2.png"}
-                alt="Profile"
-                height={10000}
-                width={10000} 
-                className="h-6 w-6"
-                />
-            </button>
-            <button className="ml-2">
-              <Image
-                src={"/assets/userAdminImg.png"}
-                alt="Profile"
-                height={10000}
-                width={10000}
-                className="h-10 w-10 rounded-full object-cover"
-              />
-            </button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="p-2 text-gray-500 hover:text-gray-700">
+                  <Image
+                    src={"/assets/setting-2.png"}
+                    alt="Profile"
+                    height={10000}
+                    width={10000}
+                    className="h-6 w-6"
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-white">
+                <DropdownMenuLabel>
+                  <Link href="/category" className="text-black">Visit by Category</Link>
+                </DropdownMenuLabel>
+                {/* <DropdownMenuSeparator /> */}
+
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="ml-2">
+                  <Image
+                    src={"/assets/userAdminImg.png"}
+                    alt="Profile"
+                    height={10000}
+                    width={10000}
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-white">
+                <DropdownMenuLabel>
+                  <Link href="/admin-dashboard" className="text-black">Visit Admin Dashboard</Link>
+                </DropdownMenuLabel>
+                {/* <DropdownMenuSeparator /> */}
+
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+
           </div>
 
           {/* Mobile Navigation */}
           <div className="md:hidden flex items-center">
             <button className="p-2">
-            <Image
+              <Image
                 src={"/assets/userAdminImg.png"}
                 alt="Profile"
                 height={1000}
