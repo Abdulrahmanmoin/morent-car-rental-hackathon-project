@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from "react"
 import { Calendar } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 
 export function CheckoutForm() {
-  const [step, setStep] = useState(1)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
