@@ -16,7 +16,7 @@ const HeroSecCard = ({ bgImageSrc, headingText, paraText, carImageSrc, boxClassN
     return (
         <div
             className={`bg-cover bg-center rounded-md ${boxClassName}`}
-            style={{ backgroundImage: `url('assets/${bgImageSrc}.jpeg')` }}
+            style={{ backgroundImage: `url('/assets/${bgImageSrc}.jpeg')` }}
         >
             <div className='flex flex-col gap-y-5'>
                 <div className='flex flex-col items-start gap-y-3 text-white pl-3 pt-3 xs:mr-40 sm:mr-2 md:mr-24'>
