@@ -26,7 +26,7 @@ const page = () => {
                                 bgImageSrc='second-box-bg-img'
                                 headingText='Sports car with the best designn and acceleration'
                                 paraText='Safety and comfort while driving a futuristic and elegant sports car'
-                                carImageSrc='car2'
+                                carImageSrc='Car2'
                                 btnBgColor='bg-blue-400'
                                 isButton={false}
                                 boxClassName='mx-3'
