@@ -3,13 +3,12 @@
 import { Search } from "@/components/ui/search"
 import Link from "next/link"
 import Image from "next/image"
-
 import * as React from "react"
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -100,15 +99,38 @@ export function Navbar() {
 
           {/* Mobile Navigation */}
           <div className="md:hidden flex items-center">
-            <button className="p-2">
-              <Image
-                src={"/assets/userAdminImg.png"}
-                alt="Profile"
-                height={1000}
-                width={1000}
-                className="h-10 w-10 rounded-full object-cover"
-              />
-            </button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="p-2">
+                  <Image
+                    src={"/assets/userAdminImg.png"}
+                    alt="Profile"
+                    height={1000}
+                    width={1000}
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-white">
+                <DropdownMenuLabel>
+                  <Link href="/admin-dashboard" className="text-black">Visit Admin Dashboard</Link>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-gray-300"/>
+
+                <DropdownMenuLabel>
+                  <Link href="/" className="text-black">Home</Link>
+                </DropdownMenuLabel>
+
+                <DropdownMenuLabel>
+                  <Link href="/category" className="text-black">Visit by Category</Link>
+                </DropdownMenuLabel>
+
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+
+
           </div>
         </div>
 
