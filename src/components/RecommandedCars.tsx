@@ -6,6 +6,7 @@ import Button from './Button'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/lib/sanityImageUrlConverter'
 import Link from 'next/link'
+import { CarsDataInterface } from '@/types/checkout'
 
 const RecommandedCars = () => {
 
@@ -13,14 +14,20 @@ const RecommandedCars = () => {
     const [isError, setIsError] = useState('')
     const [RecommandedCarsData, setRecommandedCarsData] = useState([])
 
+
     useEffect(() => {
         const fetchingCars = async () => {
             try {
                 const data = await client.fetch(`*[_type == "car" && "recommended" in tags]`)
                 setRecommandedCarsData(data)
-            } catch (err: any) {
-                console.log("error: ", err);
-                setIsError(err.message)
+            }  catch (err: unknown) {
+                if (err instanceof Error) {
+                    console.log("error: ", err);
+                    setIsError(err.message);
+                } else {
+                    console.log("An unexpected error occurred: ", err);
+                    setIsError("An unexpected error occurred");
+                }
             }
         }
 
@@ -39,9 +46,9 @@ const RecommandedCars = () => {
                 </div>
 
                 <div className="flex justify-center items-center sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 flex-wrap gap-x-4 gap-y-4 mt-5">
-                    {RecommandedCarsData.map((item: any) => (
-                        <Link href={`/car-detail/${item._id}`}>
-                            <Card key={item._id} carId={item._id} name={item.name} category={item.type} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} capacity={item.seatingCapacity} price={item.pricePerDay} />
+                    {RecommandedCarsData.map((item: CarsDataInterface) => (
+                        <Link href={`/car-detail/${item._id}`} key={item._id}>
+                            <Card carId={item._id} name={item.name} category={item.type} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} seatingCapacity={item.seatingCapacity} pricePerDay={item.pricePerDay} />
                         </Link>
                     ))}
                 </div>

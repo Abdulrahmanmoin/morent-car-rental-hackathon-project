@@ -1,7 +1,6 @@
 import { Heart, Users, Gauge, GaugeCircle } from 'lucide-react'
 import Button from './Button'
 import Image from 'next/image'
-import Link from 'next/link'
 
 interface CarCardProps {
     name?: string
@@ -9,8 +8,8 @@ interface CarCardProps {
     image?: string
     fuelCapacity?: string
     transmission?: string
-    capacity?: number
-    price?: number
+    seatingCapacity?: string
+    pricePerDay?: string
     carId?: string
     //   onRentClick?: () => void
 }
@@ -21,8 +20,8 @@ export default function Card({
     image = "/placeholder.svg?height=200&width=400",
     fuelCapacity = "90L",
     transmission = "Manual",
-    capacity = 2,
-    price = 99.00,
+    seatingCapacity = "2 people",
+    pricePerDay = "$99.00",
     carId=""
     //   onRentClick = () => {},
 }: CarCardProps) {
@@ -62,14 +61,14 @@ export default function Card({
                 </div>
                 <div className="flex items-center gap-1 text-gray-500">
                     <Users className="h-5 w-5" />
-                    <span className='text-[0.5rem] lg:text-sm text-gray-400'>{capacity}</span>
+                    <span className='text-[0.5rem] lg:text-sm text-gray-400'>{seatingCapacity}</span>
                 </div>
             </div>
 
             {/* Footer */}
             <div className="flex items-center justify-between">
                 <div>
-                    <span className="text-xl font-bold text-black">{price}</span>
+                    <span className="text-xl font-bold text-black">{pricePerDay}</span>
                     <span className="text-gray-500">/ day</span>
                 </div>
 
