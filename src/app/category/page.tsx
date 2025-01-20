@@ -66,8 +66,8 @@ const page = () => {
 
                         <div className="flex justify-center mx-8 items-center sm:grid md:grid-cols-2 lg:grid-cols-3 flex-wrap gap-x-4 gap-y-4 mt-5">
                             {RecommandedCarsData.map((item: CarDataInterface) => (
-                                <Link href={`/car-detail/${item._id}`}>
-                                    <Card key={item._id} carId={item._id} name={item.name} category={item.type} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} seatingCapacity={item.seatingCapacity} pricePerDay={item.pricePerDay} />
+                                <Link href={`/car-detail/${item._id}`} key={item._id}>
+                                    <Card  name={item.name} category={item.type} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} seatingCapacity={item.seatingCapacity} pricePerDay={item.pricePerDay} />
                                 </Link>
                             ))}
                         </div>

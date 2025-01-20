@@ -25,8 +25,8 @@ const page = (props: CarDetailPageProps) => {
 
     const carId = props.params.id;
 
-    const [isError, setIsError] = useState('')
-    const [carData, setCarData] = useState([])
+    const [isError, setIsError] = useState<string>('')
+    const [carData, setCarData] = useState<CarDataInterface[]>([])
 
     useEffect(() => {
         const fetchingCar = async () => {
@@ -45,7 +45,7 @@ const page = (props: CarDetailPageProps) => {
         }
 
         fetchingCar()
-    }, [])
+    }, [carId])
 
     return (
         <>
