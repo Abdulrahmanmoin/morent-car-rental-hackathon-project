@@ -11,7 +11,7 @@ interface CarCardProps {
     transmission?: string
     capacity?: number
     price?: number
-    isCarousel?: boolean
+    carId?: string
     //   onRentClick?: () => void
 }
 
@@ -23,7 +23,7 @@ export default function Card({
     transmission = "Manual",
     capacity = 2,
     price = 99.00,
-    isCarousel = false
+    carId=""
     //   onRentClick = () => {},
 }: CarCardProps) {
     return (
@@ -62,22 +62,18 @@ export default function Card({
                 </div>
                 <div className="flex items-center gap-1 text-gray-500">
                     <Users className="h-5 w-5" />
-                    <span className='text-[0.5rem] lg:text-sm text-gray-400'>{capacity} People</span>
+                    <span className='text-[0.5rem] lg:text-sm text-gray-400'>{capacity}</span>
                 </div>
             </div>
 
             {/* Footer */}
             <div className="flex items-center justify-between">
                 <div>
-                    <span className="text-xl font-bold text-black">${price.toFixed(2)}</span>
+                    <span className="text-xl font-bold text-black">{price}</span>
                     <span className="text-gray-500">/ day</span>
                 </div>
-                {!isCarousel && <Button btnText='Rental Now' bgColor=' bg-blue-600 hover:bg-blue-700' />}
 
-                {isCarousel &&
-                    <Link href={"/car-detail"}>
                         <Button btnText='Rental Now' bgColor=' bg-blue-600 hover:bg-blue-700' />
-                    </Link>}
             </div>
         </div>
     )

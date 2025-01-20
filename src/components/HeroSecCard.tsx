@@ -6,13 +6,14 @@ interface HeroSecCardProps {
     bgImageSrc: string;
     headingText: string;
     paraText: string;
-    carImageSrc: string;
+    carImageSrc?: string;
+    dynamicCarImageSrc?: string;
     boxClassName?: string;
     btnBgColor: string;
     isButton?: boolean
 }
 
-const HeroSecCard = ({ bgImageSrc, headingText, paraText, carImageSrc, boxClassName = "", btnBgColor, isButton = true }: HeroSecCardProps) => {
+const HeroSecCard = ({ bgImageSrc, headingText, paraText, carImageSrc, dynamicCarImageSrc, boxClassName = "", btnBgColor, isButton = true }: HeroSecCardProps) => {
     return (
         <div
             className={`bg-cover bg-center rounded-md ${boxClassName}`}
@@ -26,7 +27,8 @@ const HeroSecCard = ({ bgImageSrc, headingText, paraText, carImageSrc, boxClassN
                     {isButton && <Button btnText='Rental Car' bgColor={btnBgColor} />}
                 </div>
                 <div className='flex justify-center pb-2 '>
-                    <Image src={`/assets/${carImageSrc}.png`} alt='Car' height={1000} width={1000} className='w-44 xs:w-56' />
+                   {carImageSrc && <Image src={`/assets/${carImageSrc}.png`} alt='Car' height={1000} width={1000} className='w-44 xs:w-56' /> }
+                   {dynamicCarImageSrc && <Image src={dynamicCarImageSrc} alt='Car' height={1000} width={1000} className='w-44 xs:w-56' /> }
                 </div>
             </div>
         </div>
