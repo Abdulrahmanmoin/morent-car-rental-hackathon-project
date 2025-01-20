@@ -50,8 +50,8 @@ const CarouselSection = ({ mainHeading = "Popular Car" }: CarouselSection) => {
                                 key={item._id} carId={item._id}
                                 name={item.name} category={item.type}
                                 image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity}
-                                transmission={item.transmission} capacity={item.seatingCapacity}
-                                price={item.pricePerDay} />
+                                transmission={item.transmission} seatingCapacity={item.seatingCapacity}
+                                pricePerDay={item.pricePerDay} />
                         </Link>
 
                     ))}
