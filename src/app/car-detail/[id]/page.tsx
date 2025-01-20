@@ -18,11 +18,12 @@ import CarouselInDetailSec from '@/components/CarouselInDetailSec'
 import Link from 'next/link'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/lib/sanityImageUrlConverter'
+import { CarDataInterface, CarDetailPageProps } from '@/types/checkout'
 
 
-const page = (props: any) => {
+const page = (props: CarDetailPageProps) => {
 
-    const carId = props.params.id
+    const carId = props.params.id;
 
     const [isError, setIsError] = useState('')
     const [carData, setCarData] = useState([])
@@ -32,9 +33,14 @@ const page = (props: any) => {
             try {
                 const data = await client.fetch(`*[_type == "car" && _id == $carId]`, { carId })
                 setCarData(data)
-            } catch (err: any) {
-                console.log("error: ", err);
-                setIsError(err.message)
+            }  catch (err: unknown) {
+                if (err instanceof Error) {
+                    console.log("error: ", err);
+                    setIsError(err.message);
+                } else {
+                    console.log("An unexpected error occurred: ", err);
+                    setIsError("An unexpected error occurred");
+                }
             }
         }
 
@@ -45,7 +51,7 @@ const page = (props: any) => {
         <>
             <div>
                 <SideBar >
-                    {carData.map((item: any) =>
+                    {carData.map((item: CarDataInterface) =>
                     (
                         <>
                             <div key={item._id} className='md:flex md:flex-row md:items-center mx-auto justify-center lg:gap-x-5'>

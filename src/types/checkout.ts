@@ -35,7 +35,7 @@ export interface PaymentInfo {
   cvc?: string
 }
 
-export interface CarsDataInterface {
+export interface CarDataInterface {
   brand: string | null;
   fuelCapacity: string
   image: {
@@ -53,4 +53,10 @@ export interface CarsDataInterface {
   _id: string
   _rev: string
   _type: string
+}
+
+export interface CarDetailPageProps {
+  params: {
+    id: string;
+  };
 }

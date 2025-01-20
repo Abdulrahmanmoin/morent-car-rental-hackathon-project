@@ -6,6 +6,7 @@ import PickUpDropOff from '@/components/PickUpDropOffBox'
 import { SideBar } from '@/components/SideBarLayout'
 import { urlFor } from '@/lib/sanityImageUrlConverter'
 import { client } from '@/sanity/lib/client'
+import { CarDataInterface } from '@/types/checkout'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -20,9 +21,14 @@ const page = () => {
             try {
                 const data = await client.fetch(`*[_type == "car" && "recommended" in tags]`)
                 setRecommandedCarsData(data)
-            } catch (err: any) {
-                console.log("error: ", err);
-                setIsError(err.message)
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    console.log("error: ", err);
+                    setIsError(err.message);
+                } else {
+                    console.log("An unexpected error occurred: ", err);
+                    setIsError("An unexpected error occurred");
+                }
             }
         }
 
@@ -59,9 +65,9 @@ const page = () => {
 
 
                         <div className="flex justify-center mx-8 items-center sm:grid md:grid-cols-2 lg:grid-cols-3 flex-wrap gap-x-4 gap-y-4 mt-5">
-                            {RecommandedCarsData.map((item: any) => (
+                            {RecommandedCarsData.map((item: CarDataInterface) => (
                                 <Link href={`/car-detail/${item._id}`}>
-                                    <Card key={item._id} carId={item._id} name={item.name} category={item.category} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} capacity={item.seatingCapacity} price={item.pricePerDay} />
+                                    <Card key={item._id} carId={item._id} name={item.name} category={item.type} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} seatingCapacity={item.seatingCapacity} pricePerDay={item.pricePerDay} />
                                 </Link>
                             ))}
                         </div>

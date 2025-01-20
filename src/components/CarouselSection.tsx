@@ -5,6 +5,7 @@ import Card from './Card'
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/lib/sanityImageUrlConverter';
 import Link from 'next/link';
+import { CarDataInterface } from '@/types/checkout';
 
 interface CarouselSection {
     mainHeading?: string
@@ -20,9 +21,14 @@ const CarouselSection = ({ mainHeading = "Popular Car" }: CarouselSection) => {
             try {
                 const data = await client.fetch(`*[_type == "car" && "popular" in tags]`)
                 setCarouselCardData(data)
-            } catch (err: any) {
-                console.log("error: ", err);
-                setIsError(err.message)
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    console.log("error: ", err);
+                    setIsError(err.message);
+                } else {
+                    console.log("An unexpected error occurred: ", err);
+                    setIsError("An unexpected error occurred");
+                }
             }
         }
 
@@ -43,11 +49,13 @@ const CarouselSection = ({ mainHeading = "Popular Car" }: CarouselSection) => {
                     className="carousel carousel-start bg-transparent rounded-box
                  max-w-full lg:flex lg:justify-center space-x-4 p-4"
                 >
-                    {carouselCardData.map((item: any) => (
-                        <Link href={`/car-detail/${item._id}`}
+                    {carouselCardData.map((item: CarDataInterface) => (
+                        <Link 
+                        href={`/car-detail/${item._id}`}
+                        key={item._id} 
                         >
                             <Card
-                                key={item._id} carId={item._id}
+                                
                                 name={item.name} category={item.type}
                                 image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity}
                                 transmission={item.transmission} seatingCapacity={item.seatingCapacity}

@@ -10,7 +10,6 @@ interface CarCardProps {
     transmission?: string
     seatingCapacity?: string
     pricePerDay?: string
-    carId?: string
     //   onRentClick?: () => void
 }
 
@@ -22,7 +21,6 @@ export default function Card({
     transmission = "Manual",
     seatingCapacity = "2 people",
     pricePerDay = "$99.00",
-    carId=""
     //   onRentClick = () => {},
 }: CarCardProps) {
     return (
