@@ -11,7 +11,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const CategoryPage = () => {
 
     const [isError, setIsError] = useState('')
     const [RecommandedCarsData, setRecommandedCarsData] = useState([])
@@ -91,4 +91,4 @@ const page = () => {
     )
 }
 
-export default page
+export default CategoryPage

@@ -21,7 +21,7 @@ import { urlFor } from '@/lib/sanityImageUrlConverter'
 import { CarDataInterface, CarDetailPageProps } from '@/types/checkout'
 
 
-const page = (props: CarDetailPageProps) => {
+const CarDetailPage = (props: CarDetailPageProps) => {
 
     const carId = props.params.id;
 
@@ -130,4 +130,4 @@ const page = (props: CarDetailPageProps) => {
     )
 }
 
-export default page
+export default CarDetailPage;
