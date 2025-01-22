@@ -68,8 +68,12 @@ const CarouselSection = ({ mainHeading = "Popular Car" }: CarouselSection) => {
 
             {
                 isError &&
-                <div className='text-4xl text-black text-center'>
-                    {isError}
+                <div className='overflow-hidden '>
+                    <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
+                        <div className='text-2xl font-bold text-black text-center '>
+                            {isError}
+                        </div>
+                    </div>
                 </div>
             }
         </>

@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { cn } from "@/lib/utils"
+import { useRouter } from "next/navigation"
 
 interface FilterSidebarProps {
   isOpen: boolean
@@ -13,14 +14,18 @@ interface FilterSidebarProps {
 
 export function FilterSidebar({ isOpen, className }: FilterSidebarProps) {
   const [price, setPrice] = React.useState([100])
+  const [types, setTypes] = React.useState<string[]>([])
+  const router = useRouter()
 
   const carTypes = [
     { id: "sport", label: "Sport", count: 10 },
+    { id: "electric", label: "Electric", count: 16 },
     { id: "suv", label: "SUV", count: 12 },
-    { id: "mpv", label: "MPV", count: 16 },
-    { id: "sedan", label: "Sedan", count: 20 },
-    { id: "coupe", label: "Coupe", count: 14 },
+    { id: "hybrid", label: "Hybrid", count: 14 },
     { id: "hatchback", label: "Hatchback", count: 14 },
+    { id: "sedan", label: "Sedan", count: 20 },
+    { id: "gasoline", label: "Gasoline", count: 14 },
+    { id: "diesel", label: "Diesel", count: 14 },
   ]
 
   const capacities = [
@@ -29,6 +34,26 @@ export function FilterSidebar({ isOpen, className }: FilterSidebarProps) {
     { id: "6person", label: "6 Person", count: 12 },
     { id: "8ormore", label: "8 or More", count: 16 },
   ]
+
+  const handleTypeOfCar = (label: string) => {
+
+    setTypes((prevTypes) => {
+      if (prevTypes.includes(label)) {
+        return prevTypes.filter(type => type !== label)
+
+      } else {
+        return [...prevTypes, label]
+
+      }
+    }
+    )
+
+  };
+
+  React.useEffect(() => {
+    console.log("Current types array: ", types); // Logs updated state after render
+    router.push(`?types=${types}`)
+  }, [types]);
 
   return (
     <div
@@ -45,7 +70,9 @@ export function FilterSidebar({ isOpen, className }: FilterSidebarProps) {
           <div className="space-y-3">
             {carTypes.map((type) => (
               <div key={type.id} className="flex items-center">
-                <Checkbox id={type.id} className="h-5 w-5 rounded border-gray-300" />
+                <Checkbox id={type.id} className="h-5 w-5 rounded border-gray-300"
+                  onClick={() => handleTypeOfCar(type.label)}
+                />
                 <Label htmlFor={type.id} className="ml-3 flex flex-1 text-sm">
                   {type.label}
                   <span className="ml-auto text-gray-500">({type.count})</span>

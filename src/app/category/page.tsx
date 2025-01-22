@@ -9,6 +9,7 @@ import { client } from '@/sanity/lib/client'
 import { CarDataInterface } from '@/types/checkout'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const CategoryPage = () => {
@@ -16,8 +17,14 @@ const CategoryPage = () => {
     const [isError, setIsError] = useState('')
     const [RecommandedCarsData, setRecommandedCarsData] = useState([])
 
+    const router = useRouter()
+    const searchParams = useSearchParams()
+
+    const types = searchParams.get('types')
+
+
     useEffect(() => {
-        const fetchingCars = async () => {
+        const fetchingAllCars = async () => {
             try {
                 const data = await client.fetch(`*[_type == "car" && "recommended" in tags]`)
                 setRecommandedCarsData(data)
@@ -32,8 +39,33 @@ const CategoryPage = () => {
             }
         }
 
-        fetchingCars()
-    }, [])
+        const fetchingCarsByCategory = async (categories: string[]) => {
+            try {
+                const data = await client.fetch(
+                    `*[_type == "car" && type in $categories]`,
+                    { categories }
+                );
+                setRecommandedCarsData(data);
+                router.refresh();
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    console.log('error: ', err);
+                    setIsError(err.message);
+                } else {
+                    console.log('An unexpected error occurred: ', err);
+                    setIsError('An unexpected error occurred');
+                }
+            }
+        };
+
+        if (types) {
+            const categoriesArray = types.split(','); 
+            fetchingCarsByCategory(categoriesArray);
+        } else {
+            fetchingAllCars();
+        }
+
+    }, [types])
 
     return (
         <>
@@ -67,14 +99,12 @@ const CategoryPage = () => {
                         <div className="flex justify-center mx-8 items-center sm:grid md:grid-cols-2 lg:grid-cols-3 flex-wrap gap-x-4 gap-y-4 mt-5">
                             {RecommandedCarsData.map((item: CarDataInterface) => (
                                 <Link href={`/car-detail/${item._id}`} key={item._id}>
-                                    <Card  name={item.name} category={item.type} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} seatingCapacity={item.seatingCapacity} pricePerDay={item.pricePerDay} />
+                                    <Card name={item.name} category={item.type} image={urlFor(item.image).url()} fuelCapacity={item.fuelCapacity} transmission={item.transmission} seatingCapacity={item.seatingCapacity} pricePerDay={item.pricePerDay} />
                                 </Link>
                             ))}
                         </div>
 
-                        <div className='flex justify-center mt-10'>
-                            <Button btnText='Show more Car' bgColor="bg-blue-600 hover:bg-blue-700" />
-                        </div>
+                        
                     </div>
 
                 </SideBar>
@@ -82,8 +112,12 @@ const CategoryPage = () => {
 
             {
                 isError &&
-                <div className='text-4xl text-black text-center'>
-                    {isError}
+                <div className='overflow-hidden '>
+                    <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
+                        <div className='text-2xl font-bold text-black text-center '>
+                            {isError}
+                        </div>
+                    </div>
                 </div>
             }
         </>

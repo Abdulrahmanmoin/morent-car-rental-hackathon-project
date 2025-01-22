@@ -27,13 +27,14 @@ const CarDetailPage = (props: CarDetailPageProps) => {
 
     const [isError, setIsError] = useState<string>('')
     const [carData, setCarData] = useState<CarDataInterface[]>([])
+    const [type, setType] = useState('')
 
     useEffect(() => {
         const fetchingCar = async () => {
             try {
                 const data = await client.fetch(`*[_type == "car" && _id == $carId]`, { carId })
                 setCarData(data)
-            }  catch (err: unknown) {
+            } catch (err: unknown) {
                 if (err instanceof Error) {
                     console.log("error: ", err);
                     setIsError(err.message);
@@ -52,6 +53,7 @@ const CarDetailPage = (props: CarDetailPageProps) => {
             <div>
                 <SideBar >
                     {carData.map((item: CarDataInterface) =>
+
                     (
                         <>
                             <div key={item._id} className='md:flex md:flex-row md:items-center mx-auto justify-center lg:gap-x-5'>
@@ -113,17 +115,22 @@ const CarDetailPage = (props: CarDetailPageProps) => {
                                 </div>
                             </div>
                             <ReviewSec />
+                            <CarouselInDetailSec type={item.type} />
                         </>
                     ))}
 
                 </SideBar >
-                <CarouselInDetailSec />
+
             </div>
 
             {
                 isError &&
-                <div className='text-4xl text-black text-center'>
-                    {isError}
+                <div className='overflow-hidden '>
+                    <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
+                        <div className='text-2xl font-bold text-black text-center '>
+                            {isError}
+                        </div>
+                    </div>
                 </div>
             }
         </>

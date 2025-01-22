@@ -47,9 +47,8 @@ export interface CarDataInterface {
   pricePerDay: string
   seatingCapacity: string
   tags: string[]
-  transmission: string
+  transmission: string;
   type: string;
-  
   _id: string
   _rev: string
   _type: string
