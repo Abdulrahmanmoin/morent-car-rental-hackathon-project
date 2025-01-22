@@ -27,7 +27,6 @@ const CarDetailPage = (props: CarDetailPageProps) => {
 
     const [isError, setIsError] = useState<string>('')
     const [carData, setCarData] = useState<CarDataInterface[]>([])
-    const [type, setType] = useState('')
 
     useEffect(() => {
         const fetchingCar = async () => {

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import CarouselSection from './CarouselSection'
-import RecommandedCars from './RecommandedCars'
 import { CarDataInterface } from '@/types/checkout'
 import Link from 'next/link'
 import Card from './Card'
@@ -44,7 +42,7 @@ const CarouselInDetailSec = ({ type = "" }: Props) => {
     };
 
     if (type) {
-      let categoriesArray = [] 
+      const categoriesArray = []
       categoriesArray.push(type)
       fetchingCarsByCategory(categoriesArray);
     }
@@ -52,7 +50,7 @@ const CarouselInDetailSec = ({ type = "" }: Props) => {
     if (types) {
       const categoriesArray = types.split(',');
       fetchingCarsByCategory(categoriesArray);
-      
+
     }
   }, [types, type])
 
@@ -75,6 +73,17 @@ const CarouselInDetailSec = ({ type = "" }: Props) => {
           </Link>
         ))}
       </div>
+
+      {isError && (
+        <div className='overflow-hidden'>
+          <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
+            <div className='text-2xl font-bold text-black text-center'>
+              {isError}
+            </div>
+          </div>
+        </div>
+      )}
+
     </>
   )
 }
