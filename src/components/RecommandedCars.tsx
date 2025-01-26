@@ -91,10 +91,10 @@ const RecommandedCars = () => {
                             ={handleShowMoreCars}
                         />
                     </div>
-                ): (
-                <div className='flex justify-center mt-10'>
-                    <p className='text-black'>No more cars available</p>
-                </div>
+                ) : (
+                    <div className='flex justify-center mt-10'>
+                        <p className='text-black'>No more cars available</p>
+                    </div>
                 )}
             </div>
 
@@ -103,6 +103,8 @@ const RecommandedCars = () => {
                 <div className='overflow-hidden'>
                     <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
                         <div className='text-2xl font-bold text-black text-center'>
+                            "Unable to load products. Please try again later."
+                            <br />
                             {isError}
                         </div>
                     </div>

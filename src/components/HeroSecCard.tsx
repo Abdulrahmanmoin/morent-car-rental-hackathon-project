@@ -27,8 +27,8 @@ const HeroSecCard = ({ bgImageSrc, headingText, paraText, carImageSrc, dynamicCa
                     {isButton && <Button btnText='Rental Car' bgColor={btnBgColor} />}
                 </div>
                 <div className='flex justify-center pb-2 '>
-                   {carImageSrc && <Image src={`/assets/${carImageSrc}.png`} alt='Car' height={1000} width={1000} className='w-44 xs:w-56' /> }
-                   {dynamicCarImageSrc && <Image src={dynamicCarImageSrc} alt='Car' height={1000} width={1000} className='w-44 xs:w-56' /> }
+                   {carImageSrc && <Image src={`/assets/${carImageSrc}.png`} alt='Car' height={1000} width={1000} className='w-44 xs:w-56' loading="lazy"/> }
+                   {dynamicCarImageSrc && <Image src={dynamicCarImageSrc} alt='Car' height={1000} width={1000} className='w-44 xs:w-56' loading="lazy"/> }
                 </div>
             </div>
         </div>

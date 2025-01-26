@@ -23,7 +23,7 @@ const PickUpDropOffSec = () => {
 
             <div className='relative flex justify-center items-center'>
                 <div className='absolute bottom-24 lg:bottom-6  bg-blue-600 rounded-md p-3'>
-                    <Image src={"/assets/Swap.png"} alt='Swap' height={1000} width={10000} className='w-7' />
+                    <Image src={"/assets/Swap.png"} alt='Swap' height={1000} width={10000} className='w-7' loading="lazy"/>
                 </div>
             </div>
         </>

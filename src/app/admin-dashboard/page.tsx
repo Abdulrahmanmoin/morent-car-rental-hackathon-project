@@ -32,6 +32,7 @@ export default function RentalDetailsPage() {
                   className="h-14 w-56 object-cover"
                   width={1000}
                   height={1000}
+                  loading="lazy"
                 />
               </div>
               <div>

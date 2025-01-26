@@ -32,7 +32,7 @@ export function Search() {
       const savedData = localStorage.setItem("searchResult", JSON.stringify(data));
 
       router.replace("/search")
-      
+
       if (pathname === "/search") {
         setTimeout(() => {
 
@@ -86,7 +86,7 @@ export function Search() {
         </div>
         <button className="absolute right-4 top-1/2 -translate-y-1/2">
           {/* <SlidersHorizontal className="h-5 w-5 text-gray-500" /> */}
-          <Image src={"/assets/filter.png"} alt="Filter" height={1000} width={10000} className="h-5 w-5 text-gray-500" />
+          <Image src={"/assets/filter.png"} alt="Filter" height={1000} width={10000} className="h-5 w-5 text-gray-500" loading="lazy"/>
         </button>
       </div>
 
@@ -96,6 +96,8 @@ export function Search() {
           <div className='overflow-hidden '>
             <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
               <div className='text-2xl font-bold text-black text-center '>
+                "Unable to load products. Please try again later."
+                <br />
                 {isError}
               </div>
             </div>

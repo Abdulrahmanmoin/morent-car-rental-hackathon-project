@@ -54,6 +54,7 @@ export default function RecentTransactions() {
                 height={1000}
                 width={1000}
                 className="h-4 w-16 object-cover"
+                loading="lazy"
               />
             </div>
             <div className="flex-1">

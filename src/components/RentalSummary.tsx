@@ -24,6 +24,7 @@ export function RentalSummary({ data }: RentalSummaryProps) {
             width={64}
             height={64}
             className="h-9 w-32 object-cover"
+            loading="lazy"
           />
         </div>
         <div>

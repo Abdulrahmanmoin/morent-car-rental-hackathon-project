@@ -44,6 +44,7 @@ export default function Card({
                     height={1000}
                     width={1000}
                     className="h-auto w-full object-cover"
+                    loading="lazy"
                 />
             </div>
 

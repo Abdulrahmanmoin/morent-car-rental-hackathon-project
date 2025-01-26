@@ -74,11 +74,17 @@ const CarDetailPage = (props: CarDetailPageProps) => {
                                             className='w-20 h-14  bg-cover bg-center flex items-center rounded-md'
                                             style={{ backgroundImage: `url('/assets/second-box-bg-img.jpeg')` }}
                                         >
-                                            <Image src={urlFor(item.image).url()} alt='Car' height={1000} width={1000}
-                                                className='rounded-lg px-[4px]' />
+                                            <Image
+                                                src={urlFor(item.image).url()}
+                                                alt='Car'
+                                                height={1000}
+                                                width={1000}
+                                                className='rounded-lg px-[4px]'
+                                                loading="lazy"
+                                            />
                                         </div>
-                                        <Image src={"/assets/Look 3.png"} alt='Interior of Car' height={1000} width={1000} className='w-20' />
-                                        <Image src={"/assets/Look 2.png"} alt='Interior of Car' height={1000} width={1000} className='w-20' />
+                                        <Image src={"/assets/Look 3.png"} alt='Interior of Car' height={1000} width={1000} className='w-20' loading="lazy" />
+                                        <Image src={"/assets/Look 2.png"} alt='Interior of Car' height={1000} width={1000} className='w-20' loading="lazy" />
                                     </div>
                                 </div>
                                 <div className='bg-white rounded-lg m-4 sm:mx-20 md:mx-2 md:w-80 lg:mr-10 text-black'>
@@ -86,7 +92,7 @@ const CarDetailPage = (props: CarDetailPageProps) => {
                                         <CardHeader>
                                             <CardTitle>{item.name}</CardTitle>
                                             <CardDescription className='flex items-start'>
-                                                <Image src={"/assets/star.png"} alt='stars' height={1000} width={1000} className='w-20' />
+                                                <Image src={"/assets/star.png"} alt='stars' height={1000} width={1000} className='w-20' loading="lazy" />
                                                 <p className='text-xs text-gray-400'>440+ Reviewer</p>
                                             </CardDescription>
                                         </CardHeader>
@@ -127,6 +133,8 @@ const CarDetailPage = (props: CarDetailPageProps) => {
                 <div className='overflow-hidden '>
                     <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
                         <div className='text-2xl font-bold text-black text-center '>
+                            "Unable to load products. Please try again later."
+                            <br />
                             {isError}
                         </div>
                     </div>

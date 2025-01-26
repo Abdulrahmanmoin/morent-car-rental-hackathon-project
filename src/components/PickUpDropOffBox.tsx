@@ -16,6 +16,7 @@ const PickUpDropOff = ({ symbolImg, mainText, date, time }: PickUpDropOff) => {
       <div className='flex gap-x-4 items-center'>
         <Image src={`/assets/${symbolImg}.png`} alt='Pick Up Symbol' height={1000} width={1000}
           className='w-4'
+          loading="lazy"
         />
         <p className='text-lg text-black'>{mainText}</p>
       </div>

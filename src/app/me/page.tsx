@@ -1,11 +1,66 @@
+'use client'
+
 import { Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import React, { ChangeEvent, FormEvent, useState } from "react"
 
 export default function ProfilePage() {
+
+
+    const [formData, setFormData] = useState({
+        fullName: "",
+        nickName: "",
+    });
+
+    const [errors, setErrors] = useState({
+        fullName: "",
+        nickName: "",
+    });
+
+    // Handle input changes
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        // Basic sanitization (e.g., removing unwanted characters)
+        const sanitizedValue = value.replace(/<[^>]*>/g, ""); // Strips HTML tags
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: sanitizedValue,
+        }));
+    };
+
+    // Validate and submit the form
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        const newErrors = { fullName: "", nickName: "" };
+
+        // Validate Full Name (required and max length)
+        if (!formData.fullName) {
+            newErrors.fullName = "Full Name is required.";
+        } else if (formData.fullName.length > 50) {
+            newErrors.fullName = "Full Name must be less than 50 characters.";
+        }
+
+        // Validate Nick Name (optional but max length)
+        if (formData.nickName && formData.nickName.length > 30) {
+            newErrors.nickName = "Nick Name must be less than 30 characters.";
+        }
+
+        setErrors(newErrors);
+
+        // If no errors, submit data
+        if (Object.keys(newErrors).length === 0) {
+            console.log("Form submitted:", formData);
+            alert("Form submitted successfully!");
+        }
+    };
+
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-rose-50 text-black mb-0" >
             <div className="container max-w-4xl mx-auto p-4 py-8 space-y-8">
@@ -30,15 +85,31 @@ export default function ProfilePage() {
 
                 {/* Profile Form */}
                 <Card className="p-6">
-                    <form className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium">Full Name</label>
-                                <Input placeholder="Your Full Name" defaultValue="Abdul Rahman Moin" />
+                                <Input
+                                    type="text"
+                                    name="fullName"
+                                    placeholder="Your Full Name"
+                                    defaultValue="Abdul Rahman Moin"
+                                    value={formData.fullName}
+                                    onChange={handleChange}
+                                />
+                                {errors.fullName && <p className="text-red-500">{errors.fullName}</p>}
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium">Nick Name</label>
-                                <Input placeholder="Your Nick Name" defaultValue="Abdul Rahman " />
+                                <Input
+                                    type="text"
+                                    name="nickName"
+                                    placeholder="Your Nick Name"
+                                    defaultValue="Abdul Rahman"
+                                    value={formData.nickName}
+                                    onChange={handleChange}
+                                />
+                                {errors.nickName && <p className="text-red-500">{errors.nickName}</p>}
                             </div>
                         </div>
 
@@ -83,6 +154,12 @@ export default function ProfilePage() {
                                     <p className="text-sm text-muted-foreground">1 month ago</p>
                                 </div>
                             </div>
+                        </div>
+                        <div className="flex justify-center">
+                            <Button
+                                type="submit"
+                                className={`py-3 px-6 bg-blue-600 text-white text-xs rounded-md`}
+                            >Submit</Button>
                         </div>
                     </form>
                 </Card>

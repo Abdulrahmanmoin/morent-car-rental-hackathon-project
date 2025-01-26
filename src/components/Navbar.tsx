@@ -38,6 +38,7 @@ export function Navbar() {
                   height={10000}
                   width={10000}
                   className="h-6 w-6"
+                  loading="lazy"
                 />
               </button>
               <button className="p-2 text-gray-500 hover:text-gray-700 relative">
@@ -47,6 +48,7 @@ export function Navbar() {
                   height={10000}
                   width={10000}
                   className="h-6 w-6"
+                  loading="lazy"
                 />
                 <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500"></span>
               </button>
@@ -60,6 +62,7 @@ export function Navbar() {
                       height={10000}
                       width={10000}
                       className="h-6 w-6"
+                      loading="lazy"
                     />
                   </button>
                 </DropdownMenuTrigger>
@@ -83,6 +86,7 @@ export function Navbar() {
                         height={10000}
                         width={10000}
                         className="h-10 w-10 rounded-full object-cover"
+                        loading="lazy"
                       />
                     </button>
                   </DropdownMenuTrigger>
@@ -113,6 +117,7 @@ export function Navbar() {
                       height={1000}
                       width={1000}
                       className="h-10 w-10 rounded-full object-cover"
+                      loading="lazy"
                     />
                   </button>
                 </DropdownMenuTrigger>

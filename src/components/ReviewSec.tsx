@@ -60,6 +60,7 @@ export default function ReviewsSection() {
                     width={48}
                     height={48}
                     className="rounded-full"
+                    loading="lazy"
                   />
                   <div>
                     <h3 className="font-semibold">{review.name}</h3>
