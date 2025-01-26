@@ -88,7 +88,7 @@ const CategoryComponent = () => {
 
                     <div className='relative flex justify-center items-center'>
                         <div className='absolute bottom-24 xl:bottom-6  bg-blue-600 rounded-md p-3'>
-                            <Image src={"/assets/Swap.png"} alt='Swap' height={1000} width={10000} className='w-7' loading="lazy"/>
+                            <Image src={"/assets/Swap.png"} alt='Swap' height={1000} width={10000} className='w-7' loading="lazy" />
                         </div>
                     </div>
 
@@ -111,16 +111,17 @@ const CategoryComponent = () => {
 
             {
                 isError &&
-                <div className='overflow-hidden '>
+                <div className='overflow-hidden'>
                     <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
-                        <div className='text-2xl font-bold text-black text-center '>
-                            "Unable to load products. Please try again later."
+                        <div className='text-2xl font-bold text-black text-center'>
+                            &quot;Unable to load products. Please try again later.&quot;
                             <br />
                             {isError}
                         </div>
                     </div>
                 </div>
             }
+
         </>
 
     )

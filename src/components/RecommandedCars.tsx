@@ -99,17 +99,19 @@ const RecommandedCars = () => {
             </div>
 
             {/* Error Display */}
-            {isError && (
+            {
+                isError &&
                 <div className='overflow-hidden'>
                     <div className='flex flex-col gap-y-5 mt-5 space-x-4 px-4'>
                         <div className='text-2xl font-bold text-black text-center'>
-                            "Unable to load products. Please try again later."
+                            &quot;Unable to load products. Please try again later.&quot;
                             <br />
                             {isError}
                         </div>
                     </div>
                 </div>
-            )}
+            }
+
         </>
     )
 }
