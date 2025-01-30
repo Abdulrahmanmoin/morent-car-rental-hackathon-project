@@ -36,26 +36,27 @@ export interface PaymentInfo {
 }
 
 export interface CarDataInterface {
-  brand: string | null;
-  fuelCapacity: string
+  brand?: string | null;
+  fuelCapacity?: string
   image: {
     _type: 'image',
     asset: { _ref: string }
   }
   name: string
   originalPrice: string
-  pricePerDay: string
-  seatingCapacity: string
-  tags: string[]
-  transmission: string;
-  type: string;
-  _id: string
-  _rev: string
-  _type: string
+  pricePerDay?: string
+  seatingCapacity?: string
+  tags?: string[]
+  transmission?: string;
+  type?: string;
+  _id?: string
+  _rev?: string
+  _type?: string
 }
 
 export interface CarDetailPageProps {
   params: {
-    id: string;
+    id?: string;
+    carId?: string;
   };
 }

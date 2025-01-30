@@ -55,7 +55,6 @@ export default function ProfilePage() {
 
         // If no errors, submit data
         if (Object.keys(newErrors).length === 0) {
-            console.log("Form submitted:", formData);
             alert("Form submitted successfully!");
         }
     };

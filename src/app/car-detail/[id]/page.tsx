@@ -18,7 +18,7 @@ import CarouselInDetailSec from '@/components/CarouselInDetailSec'
 import Link from 'next/link'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/lib/sanityImageUrlConverter'
-import { CarDataInterface, CarDetailPageProps } from '@/types/checkout'
+import { CarDataInterface, CarDetailPageProps } from '@/types/types'
 
 
 const CarDetailPage = (props: CarDetailPageProps) => {
@@ -111,7 +111,7 @@ const CarDetailPage = (props: CarDetailPageProps) => {
                                                     <span className="text-gray-500">/ day</span>
 
                                                 </div>
-                                                <Link href="/payment">
+                                                <Link href={`/booking-detail/${carId}`}>
                                                     <Button btnText='Rent Now' bgColor='bg-blue-600 hover:bg-blue-700 p-2' />
                                                 </Link>
                                             </div>

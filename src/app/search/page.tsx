@@ -2,7 +2,7 @@
 
 import Card from '@/components/Card'
 import { urlFor } from '@/lib/sanityImageUrlConverter'
-import { CarDataInterface } from '@/types/checkout'
+import { CarDataInterface } from '@/types/types'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -17,7 +17,6 @@ export default function SearchPage() {
         const storedData = localStorage.getItem("searchResult")
 
         if (storedData) {
-            console.log("storedDataINSIDE: ", storedData);
             setSearchResult(JSON.parse(storedData))
 
         } else {

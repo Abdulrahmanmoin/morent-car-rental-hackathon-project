@@ -5,6 +5,8 @@ import { client } from "@/sanity/lib/client"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import Link from "next/link"
 
 
 export function Search() {
@@ -29,7 +31,7 @@ export function Search() {
       );
 
       // Save the search result in local storage as a JSON string
-      const savedData = localStorage.setItem("searchResult", JSON.stringify(data));
+      localStorage.setItem("searchResult", JSON.stringify(data));
 
       router.replace("/search")
 
@@ -40,8 +42,6 @@ export function Search() {
 
         }, 200);
       }
-
-      console.log("savedData: ", savedData);
 
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -86,7 +86,18 @@ export function Search() {
         </div>
         <button className="absolute right-4 top-1/2 -translate-y-1/2">
           {/* <SlidersHorizontal className="h-5 w-5 text-gray-500" /> */}
-          <Image src={"/assets/filter.png"} alt="Filter" height={1000} width={10000} className="h-5 w-5 text-gray-500" loading="lazy" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Image src={"/assets/filter.png"} alt="Filter" height={1000} width={10000} className="h-5 w-5 text-gray-500" loading="lazy" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-white z-[101]">
+
+              <DropdownMenuLabel>
+                <Link href="/category" className="text-black">Visit by Category</Link>
+              </DropdownMenuLabel>
+
+            </DropdownMenuContent>
+          </DropdownMenu>
         </button>
       </div>
 

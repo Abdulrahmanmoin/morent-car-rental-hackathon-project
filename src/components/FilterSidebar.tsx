@@ -51,14 +51,13 @@ export function FilterSidebar({ isOpen, className }: FilterSidebarProps) {
   };
 
   React.useEffect(() => {
-    console.log("Current types array: ", types); // Logs updated state after render
     router.push(`?types=${types}`)
   }, [types]);
 
   return (
     <div
       className={cn(
-        "fixed inset-y-0 left-0 z-50 w-48 bg-white p-6 shadow-lg transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
+        "fixed inset-y-0 left-0 z-50 w-48 bg-white p-6 md:top-24 top-40 shadow-lg transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
         isOpen ? "translate-x-0" : "-translate-x-full",
         className
       )}

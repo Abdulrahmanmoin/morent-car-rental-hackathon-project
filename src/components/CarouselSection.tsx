@@ -5,7 +5,7 @@ import Card from './Card'
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/lib/sanityImageUrlConverter';
 import Link from 'next/link';
-import { CarDataInterface } from '@/types/checkout';
+import { CarDataInterface } from '@/types/types'
 
 interface CarouselSection {
     mainHeading?: string

@@ -11,8 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { SignInButton, UserButton } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs";
 
 export function Navbar() {
+
+  const { isSignedIn } = useUser();
+
   return (
     <header className="sticky top-0 z-[51]">
       <nav className="w-full border-b border-gray-100 bg-white py-5">
@@ -30,6 +35,17 @@ export function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-4">
+
+              <div className="text-white">
+
+                {!isSignedIn &&
+                  (<div className="bg-blue-500 rounded-md p-2 px-3 font-semibold">
+                    <SignInButton mode="modal" />
+                  </div>)
+                }
+
+              </div>
+
               <button className="p-2 text-gray-500 hover:text-gray-700">
                 {/* <Heart className="h-6 w-6" /> */}
                 <Image
@@ -67,83 +83,57 @@ export function Navbar() {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 bg-white z-[101]">
+
                   <DropdownMenuLabel>
-                    <Link href="/category" className="text-black">Visit by Category</Link>
+                    <Link href="/admin-dashboard" className="text-black">Visit Admin Dashboard</Link>
                   </DropdownMenuLabel>
-                  {/* <DropdownMenuSeparator /> */}
+                  {/* <DropdownMenuSeparator className="bg-gray-300" /> */}
 
                 </DropdownMenuContent>
               </DropdownMenu>
 
-
-              
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button className="ml-2">
-                      <Image
-                        src={"/assets/userAdminImg.png"}
-                        alt="Profile"
-                        height={10000}
-                        width={10000}
-                        className="h-10 w-10 rounded-full object-cover"
-                        loading="lazy"
-                      />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 bg-white z-[101]">
-                    <DropdownMenuLabel>
-                      <Link href="/admin-dashboard" className="text-black">Visit Admin Dashboard</Link>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-gray-300" />
-                    <DropdownMenuLabel>
-                    <Link href="/me" className="text-black">Visit User Dashboard</Link>
-                  </DropdownMenuLabel>
-
-                  </DropdownMenuContent>
-                </DropdownMenu>
-             
+              <UserButton />
 
             </div>
 
             {/* Mobile Navigation */}
-            <div className="md:hidden flex items-center">
+            <div className="md:hidden flex items-center gap-x-4">
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="p-2">
+                  <button className="p-2 text-gray-500 hover:text-gray-700">
                     <Image
-                      src={"/assets/userAdminImg.png"}
+                      src={"/assets/setting-2.png"}
                       alt="Profile"
-                      height={1000}
-                      width={1000}
-                      className="h-10 w-10 rounded-full object-cover"
+                      height={10000}
+                      width={10000}
+                      className="h-6 w-6"
                       loading="lazy"
                     />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 bg-white z-[101]">
+
                   <DropdownMenuLabel>
                     <Link href="/admin-dashboard" className="text-black">Visit Admin Dashboard</Link>
                   </DropdownMenuLabel>
-                  
-                  <DropdownMenuSeparator className="bg-gray-300" />
 
-                  <DropdownMenuLabel>
-                    <Link href="/me" className="text-black">Visit User Dashboard</Link>
-                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-gray-300" />
 
                   <DropdownMenuLabel>
                     <Link href="/" className="text-black">Home</Link>
                   </DropdownMenuLabel>
 
-                  <DropdownMenuLabel>
-                    <Link href="/category" className="text-black">Visit by Category</Link>
-                  </DropdownMenuLabel>
-
                 </DropdownMenuContent>
               </DropdownMenu>
 
-
+              {isSignedIn ?
+                <UserButton />
+                :
+                (<div className="bg-blue-500 rounded-md p-2 px-3 font-semibold">
+                  <SignInButton />
+                </div>)
+              }
 
             </div>
           </div>

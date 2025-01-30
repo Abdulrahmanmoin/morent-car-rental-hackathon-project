@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CarDataInterface } from '@/types/checkout'
+import { CarDataInterface } from '@/types/types'
 import Link from 'next/link'
 import Card from './Card'
 import { urlFor } from '@/lib/sanityImageUrlConverter'
