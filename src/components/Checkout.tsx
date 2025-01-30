@@ -77,8 +77,6 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
             return
         }
 
-        console.log("URL: ", URL);
-        
             const { error } = await stripe.confirmPayment({
                 elements,
                 clientSecret,
