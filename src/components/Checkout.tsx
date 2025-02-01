@@ -6,20 +6,21 @@ import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Checkbox } from './ui/checkbox'
 import { Button } from './ui/button'
+import { sanitizeInput } from '@/lib/sanitizeInputValue'
 
 const CheckoutPage = ({ amount }: { amount: number }) => {
 
     let URL = '';
-        console.log(window.location.host)
+    console.log(window.location.host)
 
-        const myhost = window.location.host
+    const myhost = window.location.host
 
-        if (myhost === 'localhost:3000') {
-            URL = 'http://localhost:3000'
-        }
-        else {
-            URL = 'https://morent-car-rental-ar.vercel.app';
-        }
+    if (myhost === 'localhost:3000') {
+        URL = 'http://localhost:3000'
+    }
+    else {
+        URL = 'https://morent-car-rental-ar.vercel.app';
+    }
 
     const stripe = useStripe()
     const elements = useElements()
@@ -28,6 +29,10 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
     const [clientSecret, setClientSecret] = useState('')
     const [loading, setLoading] = useState(false)
 
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [town, setTown] = useState('');
 
     // as the payment method changes it is necessary to generate a new client secret.
     useEffect(() => {
@@ -46,12 +51,49 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
             .then((data) => {
                 if (data.clientSecret) {
                     setClientSecret(data.clientSecret);
+                    console.log("client secret: ", clientSecret);
+                    
                 } else {
                     console.error('Failed to fetch clientSecret:', data);
                 }
             })
             .catch((error) => console.error('Error fetching clientSecret:', error));
     }, [amount])
+
+    const validateInput = (value: string, type: string) => {
+        const nameRegex = /^[a-zA-Z\s]+$/; // Only letters and spaces
+        const phoneRegex = /^[0-9]{10,15}$/; // Only numbers, 10-15 digits
+        const addressRegex = /^[a-zA-Z0-9\s,.-]+$/; // Allows alphanumeric and some symbols
+        const townRegex = /^[a-zA-Z\s]+$/; // Only letters and spaces
+
+        switch (type) {
+            case 'name':
+                return nameRegex.test(value);
+            case 'phone':
+                return phoneRegex.test(value);
+            case 'address':
+                return addressRegex.test(value);
+            case 'town':
+                return townRegex.test(value);
+            default:
+                return true;
+        }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
+
+        let value = sanitizeInput(e.target.value); // Sanitize input
+
+        if (validateInput(value, type)) {
+            if (type === 'name') setName(value);
+            if (type === 'phone') setPhone(value);
+            if (type === 'address') setAddress(value);
+            if (type === 'town') setTown(value);
+            setError('');
+        } else {
+            setError(`Invalid ${type} format`);
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -77,13 +119,13 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
             return
         }
 
-            const { error } = await stripe.confirmPayment({
-                elements,
-                clientSecret,
-                confirmParams: {
-                    return_url: `${URL}/payment-success?amount=${amount}`
-                }
-            })
+        const { error } = await stripe.confirmPayment({
+            elements,
+            clientSecret,
+            confirmParams: {
+                return_url: `${URL}/payment-success?amount=${amount}`
+            }
+        })
 
         if (error) {
             setError(error.message)
@@ -108,19 +150,47 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
                     <div className="mt-6 grid gap-6 md:grid-cols-2">
                         <div>
                             <Label htmlFor="name">Name</Label>
-                            <Input id="name" placeholder="Your name" className="mt-1.5" required={true} />
+                            <Input 
+                            id="name" 
+                            placeholder="Your name" 
+                            className="mt-1.5" 
+                            required={true} 
+                            value={name}
+                            onChange={(e) => handleInputChange(e, 'name')}
+                            />
                         </div>
                         <div>
                             <Label htmlFor="phone">Phone Number</Label>
-                            <Input id="phone" placeholder="Phone number" className="mt-1.5" required={true} />
+                            <Input 
+                            id="phone" 
+                            placeholder="Phone number" 
+                            className="mt-1.5" 
+                            required={true} 
+                            value={phone}
+                            onChange={(e) => handleInputChange(e, 'phone')}
+                            />
                         </div>
                         <div className="md:col-span-2">
                             <Label htmlFor="address">Address</Label>
-                            <Input id="address" placeholder="Address" className="mt-1.5" required={true} />
+                            <Input 
+                            id="address" 
+                            placeholder="Address" 
+                            className="mt-1.5" 
+                            required={true}
+                            value={address}
+                            onChange={(e) => handleInputChange(e, 'address')}
+                            />
                         </div>
                         <div className="md:col-span-2">
                             <Label htmlFor="town">Town / City</Label>
-                            <Input id="town" placeholder="Town or city" className="mt-1.5" required={true} />
+                            <Input 
+                            id="town" 
+                            placeholder="Town or city" 
+                            className="mt-1.5" 
+                            required={true}
+                            value={town}
+                            onChange={(e) => handleInputChange(e, 'town')}
+                            />
                         </div>
                     </div>
                 </div>
@@ -133,9 +203,6 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
                     </div>
                     <p className="text-sm text-muted-foreground">Please enter your payment method</p>
                     {clientSecret && <PaymentElement />}
-                    {/* <button
-                        className='w-full bg-blue-600 text-white rounded-lg py-2 mt-5'
-                    >Pay Now</button> */}
                 </div>
 
                 {/* Confirmation - Step 3 */}

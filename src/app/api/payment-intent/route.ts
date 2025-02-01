@@ -7,13 +7,17 @@ export async function POST(request: NextRequest) {
     try {
         const { amount } = await request.json();
 
+        if (!amount || isNaN(amount) || amount < 0) {
+            return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
+        }
+
         const paymentIntent = await stripe.paymentIntents.create({
             amount: amount,
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
             // automatic_payment_methods: ['card_present'], 
         })
-      
+
         return NextResponse.json({ clientSecret: paymentIntent.client_secret })
 
     }
@@ -30,5 +34,5 @@ export async function POST(request: NextRequest) {
             body: { error: "An unknown error occurred" }
         });
     }
-    
+
 }
