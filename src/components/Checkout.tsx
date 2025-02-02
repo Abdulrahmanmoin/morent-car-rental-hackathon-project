@@ -82,7 +82,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
 
-        let value = sanitizeInput(e.target.value); // Sanitize input
+        const value = sanitizeInput(e.target.value); // Sanitize input
 
         if (validateInput(value, type)) {
             if (type === 'name') setName(value);
